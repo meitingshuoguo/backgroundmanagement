@@ -1,0 +1,7 @@
+fcdasfsa
+
+sdfsdfs
+
+sdfs 
+
+`cmd = code --wait --diff $LOCAL $REMOTE`
