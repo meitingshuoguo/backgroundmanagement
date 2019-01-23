@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import 'antd/dist/antd.css'
+import {Button} from 'antd'
 import Child from './Child';
 import './index.less'
 
@@ -23,7 +25,7 @@ class Life extends Component {
         return (
             <div className="content">
                 <p>react life </p>
-                <button onClick={this.handleClick}>click</button>
+                <Button onClick={this.handleClick}>click</Button>
                 <p>{this.state.count}</p>
                 <Child name={this.state.count}></Child>
             </div>
