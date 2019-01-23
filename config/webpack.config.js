@@ -104,14 +104,37 @@ module.exports = function(webpackEnv) {
         },
       },
     ].filter(Boolean);
+    // if (preProcessor) {
+    //   loaders.push({
+    //     loader: require.resolve(preProcessor),
+    //     options: {
+    //       sourceMap: isEnvProduction && shouldUseSourceMap,
+    //     },
+    //   });
+    // }
+
     if (preProcessor) {
-      loaders.push({
-        loader: require.resolve(preProcessor),
-        options: {
-          sourceMap: isEnvProduction && shouldUseSourceMap,
-        },
-      });
+      let loader = require.resolve(preProcessor)
+      if (preProcessor === "less-loader") {
+        loader = {
+          loader,
+          options: {
+            modifyVars: { //自定义主题
+              'primary-color':' #fff018 ',
+            },
+            javascriptEnabled: true,
+          }
+        }
+      }
+      loaders.push(loader);
     }
+  
+  // 作者：sbwxffnhc
+  // 链接：https://juejin.im/post/5c3964986fb9a049b41cb040
+  // 来源：掘金
+  // 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
+
     return loaders;
   };
 
@@ -353,7 +376,7 @@ module.exports = function(webpackEnv) {
                     require.resolve('babel-plugin-import'),
                     {
                       libraryName: 'antd',
-                      style: 'css'
+                      style: true
                     }
                   ]
                 ],
