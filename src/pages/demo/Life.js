@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Child from './Child';
-import './index.css'
+import './index.less'
 
 class Life extends Component {
     constructor(props){
