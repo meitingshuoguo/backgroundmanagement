@@ -120,7 +120,7 @@ module.exports = function(webpackEnv) {
           loader,
           options: {
             modifyVars: { //自定义主题
-              'primary-color':' #fff018 ',
+              'primary-color':' #25c2ff ',
             },
             javascriptEnabled: true,
           }
