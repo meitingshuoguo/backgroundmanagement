@@ -1,4 +1,7 @@
+@import './../../style/default.less';
+
 .header {
+    background-color: @colorM;
     .header-top {
         text-align: right;
         padding: 0 20px;
@@ -15,7 +18,19 @@
         height: 40px;
         line-height: 40px;
         .breadcrumb-title {
+            position: relative;
             text-align: left;
+            &:after {
+                position: absolute;
+                bottom: -15px;
+                left: 7px;
+                content: "";
+                display: block;
+                width: 0;
+                height: 0;
+                border: 8px solid rgba(0, 0, 0, 0);
+                border-top: 8px solid @colorM;
+            }
         }
         .live-info {
             text-align: right;

@@ -1,17 +1,18 @@
+@import './default.less';
+
 .container {
-    // display: flex;
+    // min-width: 800px;
+    height: calc(100vh);
+    background-color: @colorL;
     .nav-left {
-        // width: 15%;
-        min-width: 180px;
         height: calc(100vh);
         background-color: #001529;
     }
     .main {
-        // flex: 1;
         height: calc(100vh);
-    }
-    .content {
-        position: relative;
-        padding: 20px;
+        .content {
+            position: relative;
+            padding: 20px;
+        }
     }
 }
