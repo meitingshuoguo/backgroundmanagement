@@ -1,16 +1,17 @@
 import React, { Component } from 'react'
 import { Row,Col } from 'antd';
+import './index.less'
 
 export default class Footer extends Component {
   render() {
     return (
-      <div>
+      <footer >
           <Row>
             <Col span={24}>
-                footer
+                &copy;footer
             </Col>
           </Row>
-      </div>
+      </footer>
     )
   }
 }
