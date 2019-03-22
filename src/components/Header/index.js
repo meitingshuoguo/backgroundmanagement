@@ -16,7 +16,7 @@ export default class Header extends Component {
             })
         }, 1000);
 
-        this.getWeatherData()
+        // this.getWeatherData()
     }
 
     getWeatherData(){
