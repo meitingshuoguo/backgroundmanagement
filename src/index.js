@@ -5,7 +5,7 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 // import Life from './pages/demo/Life';
 // import Admin from './Admin';
-import Index from './pages/router_demo/router2/router';
+import Index from './pages/router_demo/router3/router';
 
 ReactDOM.render(<Index />, document.getElementById('root'));
 
