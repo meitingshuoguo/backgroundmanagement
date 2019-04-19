@@ -1,15 +1,14 @@
 @import './default.less';
 
 .container {
-    // min-width: 800px;
-    height: calc(100vh);
-    background-color: @colorL;
     .nav-left {
         height: calc(100vh);
         background-color: #001529;
     }
     .main {
         height: calc(100vh);
+        overflow: auto;
+        background-color: @colorL;
         .content {
             position: relative;
             padding: 20px;
