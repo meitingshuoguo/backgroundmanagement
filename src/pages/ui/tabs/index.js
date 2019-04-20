@@ -87,13 +87,13 @@ export default class index extends Component {
               }
               key="1"
             >
-              cotent1
+              content1
             </TabPane>
             <TabPane tab="tab 2" key="2">
-              cotent2
+              content2
             </TabPane>
             <TabPane tab="tab 3" key="3" disabled>
-              cotent3
+              content3
             </TabPane>
           </Tabs>
         </Card>
