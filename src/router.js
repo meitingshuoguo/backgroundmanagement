@@ -10,6 +10,7 @@ import Modals from "./pages/ui/modals";
 import Loading from "./pages/ui/loading";
 import Notice from "./pages/ui/notice";
 import Messages from "./pages/ui/messages";
+import Tabs from "./pages/ui/tabs";
 export default class router extends Component {
   render() {
     return (
@@ -27,6 +28,7 @@ export default class router extends Component {
                   <Route path="/admin/ui/loading" component={Loading} />
                   <Route path="/admin/ui/notice" component={Notice} />
                   <Route path="/admin/ui/messages" component={Messages} />
+                  <Route path="/admin/ui/tabs" component={Tabs} />
                   <Route path="*" component={NoMatch} />
                 </Switch>
               </Admin>
