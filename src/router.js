@@ -8,6 +8,7 @@ import NoMatch from "./pages/no_match";
 import Buttons from "./pages/ui/buttons";
 import Modals from "./pages/ui/modals";
 import Loading from "./pages/ui/loading";
+import Notice from "./pages/ui/notice";
 export default class router extends Component {
   render() {
     return (
@@ -23,6 +24,7 @@ export default class router extends Component {
                   <Route path="/admin/ui/buttons" component={Buttons} />
                   <Route path="/admin/ui/modals" component={Modals} />
                   <Route path="/admin/ui/loading" component={Loading} />
+                  <Route path="/admin/ui/notice" component={Notice} />
                   <Route path="*" component={NoMatch} />
                 </Switch>
               </Admin>

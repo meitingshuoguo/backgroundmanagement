@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, Button, Spin, Icon, Alert } from "antd";
+import { Card, Spin, Icon, Alert } from "antd";
 import "./../ui.less";
 export default class index extends Component {
   render() {
