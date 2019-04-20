@@ -12,25 +12,21 @@ export default class router extends Component {
     return (
       <HashRouter>
         <App>
-          <Route path="/login" component={Login}>
-            {" "}
-          </Route>{" "}
+          <Route path="/login" component={Login} />
           <Route
             path="/admin"
             render={() => (
               <Admin>
                 <Switch>
-                  <Route path="/admin/home" component={Home} />{" "}
-                  <Route path="/admin/ui/buttons" component={Buttons} />{" "}
-                  <Route path="/admin/ui/modals" component={Modals} />{" "}
-                  <Route path="*" component={NoMatch} />{" "}
-                </Switch>{" "}
+                  <Route path="/admin/home" component={Home} />
+                  <Route path="/admin/ui/buttons" component={Buttons} />
+                  <Route path="/admin/ui/modals" component={Modals} />
+                  <Route path="*" component={NoMatch} />
+                </Switch>
               </Admin>
             )}
-          >
-            {" "}
-          </Route>{" "}
-        </App>{" "}
+          />
+        </App>
       </HashRouter>
     );
   }

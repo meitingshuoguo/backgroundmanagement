@@ -12,15 +12,15 @@ export default class Admin extends Component {
         <Row className="container">
           <Col span={3} className="nav-left">
             <Navleft />
-          </Col>{" "}
+          </Col>
           <Col span={21} className="main">
             <Header />
             <Row className="content">
-              <Col span={24}> {this.props.children} </Col>{" "}
-            </Row>{" "}
+              <Col span={24}> {this.props.children} </Col>
+            </Row>
             <Footer />
-          </Col>{" "}
-        </Row>{" "}
+          </Col>
+        </Row>
       </div>
     );
   }

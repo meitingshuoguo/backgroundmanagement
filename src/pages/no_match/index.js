@@ -2,6 +2,6 @@ import React, { Component } from "react";
 
 export default class Nomatch extends Component {
   render() {
-    return <div>404.............</div>;
+    return <div> 404............. </div>;
   }
 }
