@@ -31,7 +31,10 @@ export default class index extends Component {
       activeKey: panes[0].key
     });
   }
-  handleEdit = (targetKey, action) => {
+  onChange = activeKey => {
+    this.setState({ activeKey });
+  };
+  onEdit = (targetKey, action) => {
     this[action](targetKey);
   };
   add = () => {
@@ -101,7 +104,8 @@ export default class index extends Component {
           <Tabs
             activeKey={this.state.activeKey}
             type="editable-card"
-            onEdit={this.handleEdit}
+            onEdit={this.onEdit}
+            onChange={this.onChange}
           >
             {this.state.panes.map(pane => {
               return (
