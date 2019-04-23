@@ -14,6 +14,7 @@ import Gallery from "./pages/ui/gallery";
 import Carousel from "./pages/ui/carousel";
 import Login from "./pages/form/login";
 import Register from "./pages/form/register";
+import BasicTable from "./pages/table/basic";
 export default class router extends Component {
   render() {
     return (
@@ -36,6 +37,7 @@ export default class router extends Component {
                   <Route path="/admin/ui/carousel" component={Carousel} />
                   <Route path="/admin/form/login" component={Login} />
                   <Route path="/admin/form/register" component={Register} />
+                  <Route path="/admin/table/basic" component={BasicTable} />
                   <Route path="*" component={NoMatch} />
                 </Switch>
               </Admin>
