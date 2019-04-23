@@ -1,8 +1,31 @@
 import React, { Component } from "react";
 import { Card, Table } from "antd";
+import axios from "../../../axios";
 export default class index extends Component {
-  state = {};
+  state = {
+    dataSource2: []
+  };
+
+  request = () => {
+    axios
+      .ajax({
+        url: "/table/list",
+        data: {
+          params: {
+            page: 1
+          }
+        }
+      })
+      .then(res => {
+        if (res.code === 0) {
+          this.setState({
+            dataSource2: res.result
+          });
+        }
+      });
+  };
   componentDidMount() {
+    this.request();
     const dataSource = [
       {
         id: 0,
@@ -55,7 +78,13 @@ export default class index extends Component {
             columns={columns}
             dataSource={this.state.dataSource}
           />
-          <p>f</p>
+        </Card>
+        <Card title="动态数据渲染表格">
+          <Table
+            bordered
+            columns={columns}
+            dataSource={this.state.dataSource2}
+          />
         </Card>
       </div>
     );
