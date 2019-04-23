@@ -3,7 +3,9 @@ import { Card, Table } from "antd";
 import axios from "../../../axios";
 export default class index extends Component {
   state = {
-    dataSource2: []
+    dataSource: [],
+    dataSource2: [],
+    selectedRowKeys: []
   };
 
   request = () => {
@@ -13,41 +15,54 @@ export default class index extends Component {
         data: {
           params: {
             page: 1
-          }
+          },
+          isShowLoading: true
         }
       })
       .then(res => {
         if (res.code === 0) {
           this.setState({
-            dataSource2: res.result
+            dataSource2: this.getAddKeyData(res.result)
           });
         }
       });
+  };
+  getAddKeyData = data => {
+    return data.map(item => {
+      item.key = item.id;
+      return item;
+    });
+  };
+  rowOnClick = (record, index) => {
+    let keys = [record.key];
+    this.setState({
+      selectedRowKeys: keys
+    });
   };
   componentDidMount() {
     this.request();
     const dataSource = [
       {
         id: 0,
-        name: "na",
+        name: "name1",
         sex: "man",
-        status: 0
+        status: 1
       },
       {
         id: 1,
-        name: "na",
+        name: "name2",
         sex: "man",
-        status: 0
+        status: 2
       },
       {
-        id: 0,
-        name: "na",
+        id: 2,
+        name: "name3",
         sex: "man",
-        status: 0
+        status: 3
       }
     ];
     this.setState({
-      dataSource
+      dataSource: this.getAddKeyData(dataSource)
     });
   }
   render() {
@@ -62,13 +77,29 @@ export default class index extends Component {
       },
       {
         title: "性别",
-        dataIndex: "sex"
+        dataIndex: "sex",
+        render(sex) {
+          return sex === 1 ? "男" : "女";
+        }
       },
       {
         title: "状态",
-        dataIndex: "status"
+        dataIndex: "status",
+        render(status) {
+          let config = {
+            1: "one",
+            2: "two",
+            3: "three"
+          };
+          return config[status];
+        }
       }
     ];
+    const { selectedRowKeys } = this.state;
+    const rowSelection = {
+      type: "radio",
+      selectedRowKeys
+    };
     return (
       <div>
         <Card title="基础表格">
@@ -84,6 +115,19 @@ export default class index extends Component {
             bordered
             columns={columns}
             dataSource={this.state.dataSource2}
+          />
+        </Card>
+        <Card title="动态数据渲染表格">
+          <Table
+            bordered
+            columns={columns}
+            dataSource={this.state.dataSource2}
+            rowSelection={rowSelection}
+            onRow={(record, index) => ({
+              onClick: () => {
+                this.rowOnClick(record, index);
+              }
+            })}
           />
         </Card>
       </div>
