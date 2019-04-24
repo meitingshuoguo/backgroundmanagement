@@ -21,7 +21,7 @@ export default class Axios {
   }
   static ajax(options) {
     let loading = document.getElementById("ajaxLoading");
-    if (options.data && options.data.isShowLoading) {
+    if (options.data && options.data.isShowLoading !== false) {
       loading.style.display = "block";
     }
     let baseURL = "https://easy-mock.com/mock/5cbe8c2f562d3c66b9c354ea/mockapi";
