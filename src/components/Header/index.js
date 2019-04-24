@@ -16,16 +16,19 @@ export default class Header extends Component {
       });
     }, 1000);
 
-    // this.getWeatherData()
+    this.getWeatherData();
   }
 
   getWeatherData() {
     Axios.jsonp({
-      url: "http://api.jirengu.com/getWeather.php"
+      url:
+        "http://api.map.baidu.com/telematics/v3/weather?location=成都&output=json&ak=3p49MVra6urFRGOT9s8UBWr2"
     }).then(res => {
+      console.log("TCL: Header -> getWeatherData -> res", res);
       if (res.status === "success") {
         let data = res.results[0];
         this.setState({
+          cityName: data.currentCity,
           pm25: data.pm25,
           dayPictureUrl: data.weather_data[0].dayPictureUrl,
           weather: data.weather_data[0].weather
@@ -50,7 +53,8 @@ export default class Header extends Component {
           <Col span={20} className="live-info">
             <span className="date"> {this.state.sysTime} </span>
             <span className="weather">
-              {this.state.weather} <img src={this.state.dayPictureUrl} alt="" />
+              {this.state.cityName}：{this.state.weather}
+              <img src={this.state.dayPictureUrl} alt="" />
               PM2 .5 <span className="colon">: </span> {this.state.pm25}
             </span>
           </Col>
