@@ -24,7 +24,6 @@ export default class Header extends Component {
       url:
         "http://api.map.baidu.com/telematics/v3/weather?location=成都&output=json&ak=3p49MVra6urFRGOT9s8UBWr2"
     }).then(res => {
-      console.log("TCL: Header -> getWeatherData -> res", res);
       if (res.status === "success") {
         let data = res.results[0];
         this.setState({
@@ -34,7 +33,6 @@ export default class Header extends Component {
           weather: data.weather_data[0].weather
         });
       }
-      console.log(res);
     });
   }
   render() {

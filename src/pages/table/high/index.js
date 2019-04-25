@@ -38,10 +38,11 @@ export default class index extends Component {
     let _this = this;
     Axios.ajax({
       url: "table/list",
-      params: {
-        page: _this.params.page
-      },
-      isShowLoading: true
+      data: {
+        params: {
+          page: _this.params.page
+        }
+      }
     }).then(res => {
       if (res.code === 0) {
         this.setState({
