@@ -105,6 +105,17 @@ export default class index extends Component {
       }
     });
   };
+  handleOrderDetail = () => {
+    const key = this.state.selectedRowKeys[0];
+    if (key) {
+      window.open("/#/common/order/detail/" + key, "_blank");
+    } else {
+      Modal.info({
+        title: "提示",
+        content: "请选择一条订单"
+      });
+    }
+  };
   render() {
     const formItemLayout = {
       rowCol: { span: 4 },
@@ -155,7 +166,11 @@ export default class index extends Component {
         </Card>
         <Card>
           <div style={{ marginBottom: 20 }}>
-            <Button type="primary" style={{ marginRight: 20 }}>
+            <Button
+              type="primary"
+              style={{ marginRight: 20 }}
+              onClick={this.handleOrderDetail}
+            >
               订单详情
             </Button>
             <Button type="primary" onClick={this.handleEndOrder}>

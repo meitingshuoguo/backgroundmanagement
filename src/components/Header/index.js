@@ -36,27 +36,40 @@ export default class Header extends Component {
     });
   }
   render() {
+    const { menuType } = this.props;
     return (
       <div className="header">
         <Row className="header-top">
-          <Col span={24}>
+          {menuType ? (
+            <Col span={5} className="logo">
+              <img src="/assets/logo-ant.svg" alt="logo" />
+              <span>IMOOC</span>
+            </Col>
+          ) : (
+            ""
+          )}
+          <Col span={menuType ? 19 : 24}>
             <span> welcome， {this.state.userName} </span>
             <a href="quit"> 退出 </a>
           </Col>
         </Row>
-        <Row className="breadcrumb">
-          <Col span={4} className="breadcrumb-title">
-            首页
-          </Col>
-          <Col span={20} className="live-info">
-            <span className="date"> {this.state.sysTime} </span>
-            <span className="weather">
-              {this.state.cityName}：{this.state.weather}
-              <img src={this.state.dayPictureUrl} alt="" />
-              PM2 .5 <span className="colon">: </span> {this.state.pm25}
-            </span>
-          </Col>
-        </Row>
+        {menuType ? (
+          ""
+        ) : (
+          <Row className="breadcrumb">
+            <Col span={4} className="breadcrumb-title">
+              首页
+            </Col>
+            <Col span={20} className="live-info">
+              <span className="date"> {this.state.sysTime} </span>
+              <span className="weather">
+                {this.state.cityName}：{this.state.weather}
+                <img src={this.state.dayPictureUrl} alt="" />
+                PM2 .5 <span className="colon">: </span> {this.state.pm25}
+              </span>
+            </Col>
+          </Row>
+        )}
       </div>
     );
   }

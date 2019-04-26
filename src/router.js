@@ -18,6 +18,8 @@ import BasicTable from "./pages/table/basic";
 import HighTable from "./pages/table/high";
 import City from "./pages/city";
 import Order from "./pages/order";
+import Common from "./Common";
+import Detail from "./pages/order/detail";
 export default class router extends Component {
   render() {
     return (
@@ -47,6 +49,17 @@ export default class router extends Component {
                   <Route path="*" component={NoMatch} />
                 </Switch>
               </Admin>
+            )}
+          />
+          <Route
+            path="/common"
+            render={() => (
+              <Common>
+                <Route
+                  path="/common/order/detail/:orderId"
+                  component={Detail}
+                />
+              </Common>
             )}
           />
         </App>

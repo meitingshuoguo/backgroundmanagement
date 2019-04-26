@@ -1,51 +1,67 @@
-@import './../../style/default.less';
+@import "./../../style/default.less";
 
 .header {
-    background-color: @colorM;
-    .header-top {
-        text-align: right;
-        padding: 0 20px;
-        height: 60px;
-        line-height: 60px;
-        a {
-            margin-left: 15px;
-        }
+  background-color: @colorM;
+  .header-top {
+    text-align: right;
+    padding: 0 20px;
+    height: 60px;
+    line-height: 60px;
+    a {
+      margin-left: 15px;
     }
-    .breadcrumb {
-        box-sizing: border-box;
-        border-top: 1px solid  #ebedf0;
-        padding: 0 20px;
+    .logo {
+      line-height: 60px;
+      text-align: left;
+      font-size: 18px;
+      img {
         height: 40px;
-        line-height: 40px;
-        .breadcrumb-title {
-            position: relative;
-            text-align: left;
-            &:after {
-                position: absolute;
-                bottom: -15px;
-                left: 7px;
-                content: "";
-                display: block;
-                width: 0;
-                height: 0;
-                border: 8px solid rgba(0, 0, 0, 0);
-                border-top: 8px solid @colorM;
-            }
-        }
-        .live-info {
-            text-align: right;
-            .date {
-                margin-right: 15px;
-            }
-            .weather {
-                img{
-                    width: 19px;
-                    margin: 0 10px 4px 4px;
-                }
-                .colon {
-                    padding: 0 2px;
-                }
-            }
-        }
+        padding-right: 15px;
+        vertical-align: middle;
+      }
     }
+  }
+  .breadcrumb {
+    box-sizing: border-box;
+    border-top: 1px solid #ebedf0;
+    padding: 0 20px;
+    height: 40px;
+    line-height: 40px;
+    .breadcrumb-title {
+      position: relative;
+      text-align: left;
+      &:after {
+        position: absolute;
+        bottom: -15px;
+        left: 7px;
+        content: "";
+        display: block;
+        width: 0;
+        height: 0;
+        border: 8px solid rgba(0, 0, 0, 0);
+        border-top: 8px solid @colorM;
+      }
+    }
+    .live-info {
+      text-align: right;
+      .date {
+        margin-right: 15px;
+      }
+      .weather {
+        img {
+          width: 19px;
+          margin: 0 10px 4px 4px;
+        }
+        .colon {
+          padding: 0 2px;
+        }
+      }
+    }
+  }
+}
+.simple-page {
+  .header-top {
+    background: #1890ff;
+    color: @colorM;
+  }
 }
