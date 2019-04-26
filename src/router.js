@@ -17,6 +17,7 @@ import Register from "./pages/form/register";
 import BasicTable from "./pages/table/basic";
 import HighTable from "./pages/table/high";
 import City from "./pages/city";
+import Order from "./pages/order";
 export default class router extends Component {
   render() {
     return (
@@ -42,6 +43,7 @@ export default class router extends Component {
                   <Route path="/admin/table/basic" component={BasicTable} />
                   <Route path="/admin/table/high" component={HighTable} />
                   <Route path="/admin/city" component={City} />
+                  <Route path="/admin/order" component={Order} />
                   <Route path="*" component={NoMatch} />
                 </Switch>
               </Admin>
