@@ -1,19 +1,9 @@
 import React, { Component } from "react";
-import {
-  Button,
-  Card,
-  Table,
-  Form,
-  Modal,
-  message,
-  Select,
-  DatePicker
-} from "antd";
+import { Button, Card, Table, Form, Modal, message } from "antd";
 import Axios from "../../axios";
 import utils from "../../utils/utils";
-import moment from "moment";
+import BaseForm from "../../components/BaseForm";
 const FormItem = Form.Item;
-const Option = Select.Option;
 export default class index extends Component {
   state = {
     dataSource: [],
@@ -25,13 +15,60 @@ export default class index extends Component {
   params = {
     page: 1
   };
+  formConfig = {
+    formList: [
+      {
+        type: "SELECT",
+        label: "城市",
+        field: "city_id",
+        placeholder: "全部",
+        initialValue: "1",
+        style: { width: 100 },
+        list: [
+          { id: "0", name: "全部" },
+          { id: "1", name: "成都" },
+          { id: "2", name: "深圳" }
+        ]
+      },
+      {
+        type: "DATEPICKER",
+        label: "开始时间",
+        field: "start_time",
+        placeholder: "请选择时间",
+        rules: [
+          {
+            required: true,
+            message: "不能为空"
+          }
+        ]
+      },
+      {
+        type: "RANGEPICKER",
+        label: "时间范围",
+        field: "time",
+        showTime: true,
+        placeholder: ["开始时间", "结束时间"]
+      },
+      {
+        type: "SELECT",
+        label: "订单状态",
+        field: "order_status",
+        placeholder: "全部",
+        initialValue: "1",
+        style: { width: 100 },
+        list: [
+          { id: "0", name: "全部" },
+          { id: "1", name: "已完成" },
+          { id: "2", name: "进行中" }
+        ]
+      }
+    ]
+  };
   request = () => {
     Axios.ajax({
       url: "/order/list",
       data: {
-        params: {
-          page: this.params.page
-        }
+        params: this.params
       }
     }).then(res => {
       if (res.code === 0) {
@@ -49,14 +86,18 @@ export default class index extends Component {
   componentDidMount() {
     this.request();
   }
-  isSearch = status => {
-    if (status) {
-      message.success("可以查询");
-      this.request();
-    } else {
-      message.error("不能查询");
-    }
-    console.log("TCL: index -> isSearch -> status", status);
+  handleSearch = () => {
+    const formData = this.BaseForm.props.form.getFieldsValue();
+    this.BaseForm.props.form.validateFields((error, values) => {
+      if (!error) {
+        this.params = formData;
+        this.request();
+        console.log("TCL: index -> handleSearch -> formData", formData);
+      }
+    });
+  };
+  handleFormReset = () => {
+    this.BaseForm.props.form.resetFields();
   };
   rowOnClick = (data, index) => {
     const key = [data.key];
@@ -86,7 +127,7 @@ export default class index extends Component {
       message.info("请选择一项订单");
     }
   };
-  handleSubmit = () => {
+  handleEndOrderSubmit = () => {
     const key = this.state.selectedRowKeys[0];
     Axios.ajax({
       url: "/order/finish",
@@ -162,7 +203,26 @@ export default class index extends Component {
     return (
       <div>
         <Card>
-          <FilterForm isSearch={this.isSearch} />
+          <BaseForm
+            layout="inline"
+            formList={this.formConfig.formList}
+            wrappedComponentRef={form => {
+              this.BaseForm = form;
+            }}
+          >
+            <FormItem>
+              <Button
+                type="primary"
+                style={{ marginRight: 20 }}
+                onClick={this.handleSearch}
+              >
+                查询
+              </Button>
+              <Button type="primary" onClick={this.handleFormReset}>
+                重置
+              </Button>
+            </FormItem>
+          </BaseForm>
         </Card>
         <Card>
           <div style={{ marginBottom: 20 }}>
@@ -195,7 +255,7 @@ export default class index extends Component {
             onCancel={() => {
               this.setState({ isShowEndOrder: false });
             }}
-            onOk={this.handleSubmit}
+            onOk={this.handleEndOrderSubmit}
           >
             <Form layout="inline">
               <FormItem label="车辆编号" {...formItemLayout}>
@@ -217,97 +277,3 @@ export default class index extends Component {
     );
   }
 }
-
-class FilterForm extends Component {
-  handleSearch = () => {
-    const userInfo = this.props.form.getFieldsValue();
-    if (userInfo.start_time) {
-      userInfo.start_time = userInfo.start_time.format("YYYY-MM-DD HH:mm:ss");
-    }
-    if (userInfo.end_time) {
-      userInfo.end_time = userInfo.end_time.format("YYYY-MM-DD HH:mm:ss");
-    }
-    this.props.form.validateFields((error, values) => {
-      if (!error) {
-        message.info(userInfo.end_time);
-        this.props.isSearch(true);
-      }
-    });
-  };
-  handleReset = () => {
-    this.props.form.resetFields();
-  };
-  render() {
-    const { getFieldDecorator } = this.props.form;
-
-    return (
-      <Form layout="inline">
-        <FormItem label="城市">
-          {getFieldDecorator("city_id")(
-            <Select placeholder="全部" style={{ width: 120 }}>
-              <Option value="">全部</Option>
-              <Option value="1">成都</Option>
-              <Option value="2">深圳</Option>
-              <Option value="3">广州</Option>
-            </Select>
-          )}
-        </FormItem>
-        <FormItem>
-          {getFieldDecorator("start_time", {
-            initialValue: moment("2018-08-08 00:00:00"),
-            rules: [
-              {
-                required: true,
-                message: "不能为空"
-              }
-            ]
-          })(
-            <DatePicker
-              placeholder="请选择开始时间"
-              format="YYYY-MM-DD HH:mm:ss"
-            />
-          )}
-        </FormItem>
-        <FormItem>
-          {getFieldDecorator("end_time", {
-            initialValue: moment("2018-08-08 00:00:00"),
-            rules: [
-              {
-                required: "true",
-                message: "不能为空"
-              }
-            ]
-          })(
-            <DatePicker
-              placeholder="请选择结束时间"
-              format="YYYY-MM-DD HH:mm:ss"
-            />
-          )}
-        </FormItem>
-        <FormItem label="订单状态">
-          {getFieldDecorator("status")(
-            <Select placeholder="全部" style={{ width: 120 }}>
-              <Option value="">全部</Option>
-              <Option value="1">成都</Option>
-              <Option value="2">深圳</Option>
-              <Option value="3">广州</Option>
-            </Select>
-          )}
-        </FormItem>
-        <FormItem>
-          <Button
-            type="primary"
-            style={{ marginRight: 20 }}
-            onClick={this.handleSearch}
-          >
-            查询
-          </Button>
-          <Button type="primary" onClick={this.handleReset}>
-            重置
-          </Button>
-        </FormItem>
-      </Form>
-    );
-  }
-}
-FilterForm = Form.create({})(FilterForm);
