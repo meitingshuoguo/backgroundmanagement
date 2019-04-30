@@ -80,29 +80,12 @@ export default class index extends Component {
     ]
   };
   request = () => {
-    const _this = this;
-    Axios.ajax({
-      url: "/city/list",
-      data: {
-        params: _this.params
-      }
-    }).then(res => {
-      if (res.code === 0) {
-        this.setState({
-          dataSource: utils.getIncludeKeyPropData(res.result.list),
-          pagination: utils.pagination(res, current => {
-            _this.params.page = current;
-            _this.request();
-          })
-        });
-      }
-    });
+    Axios.requestList(this, "/city/list", this.params);
   };
   handleSearch = () => {
     const formData = this.BaseForm.props.form.getFieldsValue();
     this.params = formData;
     this.request();
-    console.log("TCL: index -> handleSearch -> formData", formData);
   };
   handleFormReset = () => {
     this.BaseForm.props.form.resetFields();
