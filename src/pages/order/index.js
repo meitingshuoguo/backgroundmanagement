@@ -159,7 +159,7 @@ export default class index extends Component {
   };
   render() {
     const formItemLayout = {
-      rowCol: { span: 4 },
+      labelCol: { span: 4 },
       wrappedCol: { span: 8 }
     };
     const { selectedRowKeys } = this.state;

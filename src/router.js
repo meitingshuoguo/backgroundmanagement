@@ -20,6 +20,7 @@ import City from "./pages/city";
 import Order from "./pages/order";
 import Common from "./Common";
 import Detail from "./pages/order/detail";
+import User from "./pages/user";
 export default class router extends Component {
   render() {
     return (
@@ -46,6 +47,7 @@ export default class router extends Component {
                   <Route path="/admin/table/high" component={HighTable} />
                   <Route path="/admin/city" component={City} />
                   <Route path="/admin/order" component={Order} />
+                  <Route path="/admin/user" component={User} />
                   <Route path="*" component={NoMatch} />
                 </Switch>
               </Admin>

@@ -1,11 +1,13 @@
 import React, { Component } from "react";
-import { Input, Select, Checkbox, DatePicker, Form } from "antd";
+import { Input, Select, Checkbox, Radio, DatePicker, Form } from "antd";
+import TextArea from "antd/lib/input/TextArea";
 const FormItem = Form.Item;
 const Option = Select.Option;
+const RadioGroup = Radio.Group;
 const { RangePicker } = DatePicker;
 
 class BaseForm extends Component {
-  layout = this.props.layout || "";
+  layout = this.props.layout || "horizontal";
   formItemLayout = this.props.formItemLayout || {};
   initFormList = () => {
     const { getFieldDecorator } = this.props.form;
@@ -53,6 +55,15 @@ class BaseForm extends Component {
               )}
             </FormItem>
           );
+        } else if (item.type === "RADIO") {
+          formItem = (
+            <FormItem label={label} key={field} {...this.formItemLayout}>
+              {getFieldDecorator(field, {
+                initialValue,
+                rules
+              })(<RadioGroup>{this.getRadioList(list)}</RadioGroup>)}
+            </FormItem>
+          );
         } else if (item.type === "CHECKBOX") {
           formItem = (
             <FormItem label={label} key={field} {...this.formItemLayout}>
@@ -79,6 +90,15 @@ class BaseForm extends Component {
               })(<RangePicker showTime={showTime} placeholder={placeholder} />)}
             </FormItem>
           );
+        } else if (item.type === "TEXTAREA") {
+          formItem = (
+            <FormItem label={label} key={field} {...this.formItemLayout}>
+              {getFieldDecorator(field, {
+                initialValue,
+                rules
+              })(<TextArea />)}
+            </FormItem>
+          );
         } else {
           console.error("BaseForm：传入未知表单组件类型！");
         }
@@ -100,6 +120,20 @@ class BaseForm extends Component {
       });
     }
     return options;
+  };
+  getRadioList = list => {
+    let radios = [];
+    if (list && list.length > 0) {
+      list.map(item => {
+        radios.push(
+          <Radio value={item.id} key={item.id}>
+            {item.name}
+          </Radio>
+        );
+        return item;
+      });
+    }
+    return radios;
   };
   render() {
     return (
