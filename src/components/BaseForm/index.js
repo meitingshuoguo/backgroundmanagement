@@ -22,7 +22,8 @@ class BaseForm extends Component {
           placeholder,
           style,
           showTime,
-          rules
+          rules,
+          inputType
         } = item;
 
         if (item.type === "SELECT") {
@@ -44,7 +45,12 @@ class BaseForm extends Component {
               {getFieldDecorator(field, {
                 initialValue,
                 rules
-              })(<Input type="text" placeholder={placeholder} />)}
+              })(
+                <Input
+                  type={inputType ? inputType : "text"}
+                  placeholder={placeholder}
+                />
+              )}
             </FormItem>
           );
         } else if (item.type === "CHECKBOX") {

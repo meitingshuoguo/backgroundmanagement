@@ -64,7 +64,7 @@ export default class Axios {
           dataSource: utils.getIncludeKeyPropData(res.result.list),
           pagination: utils.pagination(res, current => {
             _this.params.page = current;
-            this.requestList();
+            _this.request();
           })
         });
       }
