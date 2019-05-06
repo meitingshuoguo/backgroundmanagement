@@ -2,11 +2,13 @@ import React, { Component } from "react";
 import { Card, Button, Form, message, Table, Modal } from "antd";
 import BaseForm from "../../components/BaseForm";
 import Axios from "../../axios";
+import moment from "moment";
 const FormItem = Form.Item;
 export default class index extends Component {
   state = {
     dataSource: [],
     selectedRowKeys: [],
+    selectedRowItem: null,
     pagination: {},
     type: "",
     title: "",
@@ -74,7 +76,7 @@ export default class index extends Component {
             message: "不能为空"
           }
         ],
-        list: [{ id: "1", name: "男" }, { id: "2", name: "女" }]
+        list: [{ id: 1, name: "男" }, { id: 2, name: "女" }]
       },
       {
         label: "状态",
@@ -87,12 +89,12 @@ export default class index extends Component {
             message: "不能为空"
           }
         ],
-        list: [{ id: "1", name: "状态1" }, { id: "2", name: "状态2" }]
+        list: [{ id: 1, name: "状态1" }, { id: 2, name: "状态2" }]
       },
       {
         label: "生日",
         type: "DATEPICKER",
-        field: "birthday",
+        field: "time",
         rules: [
           {
             required: true,
@@ -120,22 +122,64 @@ export default class index extends Component {
   onRowClick = (data, index) => {
     const selectedRowKeys = [data.key];
     this.setState({
-      selectedRowKeys
+      selectedRowKeys,
+      selectedRowItem: data
     });
   };
   request = () => {
     Axios.requestList(this, "/table/list", this.params);
   };
   handleUserOperate = (type, e) => {
+    let { selectedRowItem } = this.state;
     if (type === "add") {
+      this.userFormConfig.formList = this.userFormConfig.formList.map(item => {
+        delete item.initialValue;
+        return item;
+      });
       this.setState({
         type,
         title: "创建员工",
         isVisible: true
       });
-    } else if (type === "edit") {
-    } else if (type === "detail") {
-    } else if (type === "delete") {
+    } else {
+      if (selectedRowItem) {
+        if (type === "edit") {
+          this.userFormConfig.formList = this.userFormConfig.formList.map(
+            item => {
+              item.initialValue = selectedRowItem[item.field];
+              if (item.field === "time") {
+                item.initialValue = moment(item.initialValue);
+              }
+              return item;
+            }
+          );
+          this.setState({
+            type,
+            isVisible: true,
+            title: "编辑员工",
+            selectedRowItem
+          });
+        } else if (type === "detail") {
+          Modal.info({
+            title: "提示",
+            content: "暂无该功能"
+          });
+        } else if (type === "delete") {
+          Modal.confirm({
+            title: "删除用户",
+            content: `确定删除${selectedRowItem.name}?`,
+            onOk: () => {
+              //ajax delete
+              this.request();
+            }
+          });
+        }
+      } else {
+        Modal.info({
+          title: "提示",
+          content: "请选择用户"
+        });
+      }
     }
   };
   handleSubmit = () => {
@@ -144,11 +188,12 @@ export default class index extends Component {
     form.validateFields((err, value) => {
       if (!err) {
         // ajax
+        console.log(data);
         this.setState({
           isVisible: false
         });
+        this.request();
         this.userForm.props.form.resetFields();
-        console.log(value);
       }
     });
   };

@@ -78,6 +78,7 @@ class BaseForm extends Component {
           formItem = (
             <FormItem label={label} key={field} {...this.formItemLayout}>
               {getFieldDecorator(field, {
+                initialValue,
                 rules
               })(<DatePicker showTime={showTime} placeholder={placeholder} />)}
             </FormItem>
@@ -86,6 +87,7 @@ class BaseForm extends Component {
           formItem = (
             <FormItem label={label} key={field} {...this.formItemLayout}>
               {getFieldDecorator(field, {
+                initialValue,
                 rules
               })(<RangePicker showTime={showTime} placeholder={placeholder} />)}
             </FormItem>
