@@ -159,8 +159,8 @@ export default class index extends Component {
   };
   render() {
     const formItemLayout = {
-      labelCol: { span: 4 },
-      wrappedCol: { span: 8 }
+      labelCol: { span: 6 },
+      wrappedCol: { span: 18 }
     };
     const { selectedRowKeys } = this.state;
     const rowSelection = {
@@ -257,7 +257,7 @@ export default class index extends Component {
             }}
             onOk={this.handleEndOrderSubmit}
           >
-            <Form layout="inline">
+            <Form>
               <FormItem label="车辆编号" {...formItemLayout}>
                 {this.state.orderInfo.bike_sn}
               </FormItem>
