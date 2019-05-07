@@ -16,6 +16,7 @@ import Login from "./pages/form/login";
 import Register from "./pages/form/register";
 import BasicTable from "./pages/table/basic";
 import HighTable from "./pages/table/high";
+import Rich from "./pages/rich";
 import City from "./pages/city";
 import Order from "./pages/order";
 import Common from "./Common";
@@ -45,6 +46,7 @@ export default class router extends Component {
                   <Route path="/admin/form/register" component={Register} />
                   <Route path="/admin/table/basic" component={BasicTable} />
                   <Route path="/admin/table/high" component={HighTable} />
+                  <Route path="/admin/rich" component={Rich} />
                   <Route path="/admin/city" component={City} />
                   <Route path="/admin/order" component={Order} />
                   <Route path="/admin/user" component={User} />
