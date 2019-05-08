@@ -14,18 +14,17 @@ export default class Navleft extends Component {
   }
 
   renderMenu = data => {
-    const basePath = "/admin";
     return data.map(item => {
       if (item.children) {
         return (
-          <SubMenu title={item.title} key={basePath + item.key}>
+          <SubMenu title={item.title} key={item.key}>
             {this.renderMenu(item.children)}
           </SubMenu>
         );
       }
       return (
-        <Menu.Item title={item.title} key={basePath + item.key}>
-          <NavLink to={basePath + item.key}> {item.title} </NavLink>
+        <Menu.Item title={item.title} key={item.key}>
+          <NavLink to={item.key}> {item.title} </NavLink>
         </Menu.Item>
       );
     });
