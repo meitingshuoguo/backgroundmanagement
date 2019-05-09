@@ -25,7 +25,8 @@ class BaseForm extends Component {
           style,
           showTime,
           rules,
-          inputType
+          inputType,
+          disabled
         } = item;
 
         if (item.type === "SELECT") {
@@ -35,7 +36,11 @@ class BaseForm extends Component {
                 initialValue,
                 rules
               })(
-                <Select style={style} placeholder={placeholder}>
+                <Select
+                  disabled={disabled}
+                  style={style}
+                  placeholder={placeholder}
+                >
                   {this.getOptionList(list)}
                 </Select>
               )}
@@ -49,6 +54,7 @@ class BaseForm extends Component {
                 rules
               })(
                 <Input
+                  disabled={disabled}
                   type={inputType ? inputType : "text"}
                   placeholder={placeholder}
                 />
@@ -61,7 +67,11 @@ class BaseForm extends Component {
               {getFieldDecorator(field, {
                 initialValue,
                 rules
-              })(<RadioGroup>{this.getRadioList(list)}</RadioGroup>)}
+              })(
+                <RadioGroup disabled={disabled}>
+                  {this.getRadioList(list)}
+                </RadioGroup>
+              )}
             </FormItem>
           );
         } else if (item.type === "CHECKBOX") {
@@ -71,7 +81,7 @@ class BaseForm extends Component {
                 valuePropName: "checked",
                 initialValue,
                 rules
-              })(<Checkbox>{label}</Checkbox>)}
+              })(<Checkbox disabled={disabled}>{label}</Checkbox>)}
             </FormItem>
           );
         } else if (item.type === "DATEPICKER") {
@@ -98,7 +108,7 @@ class BaseForm extends Component {
               {getFieldDecorator(field, {
                 initialValue,
                 rules
-              })(<TextArea />)}
+              })(<TextArea disabled={disabled} />)}
             </FormItem>
           );
         } else {
