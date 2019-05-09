@@ -6,13 +6,22 @@ import MenuConfig from "./../../config/menuConfig";
 const SubMenu = Menu.SubMenu;
 // const MenuItemGroup = Menu.ItemGroup
 export default class Navleft extends Component {
+  state = {
+    currentUrl: ""
+  };
   componentWillMount() {
+    const currentUrl = window.location.hash.replace(/#|\?.*$/g, "");
     const menuTreeNode = this.renderMenu(MenuConfig);
     this.setState({
-      menuTreeNode
+      menuTreeNode,
+      currentUrl
     });
   }
-
+  handleClick = item => {
+    this.setState({
+      currentUrl: item.key
+    });
+  };
   renderMenu = data => {
     return data.map(item => {
       if (item.children) {
@@ -37,7 +46,12 @@ export default class Navleft extends Component {
           <img src="/assets/logo-ant.svg" alt="" />
           <h1> Imooc MS </h1>
         </div>
-        <Menu mode="vertical" theme="dark">
+        <Menu
+          onClick={this.handleClick}
+          selectedKeys={[this.state.currentUrl]}
+          mode="vertical"
+          theme="dark"
+        >
           {this.state.menuTreeNode}
           {/* <SubMenu key="sub1" title={<span><Icon type="mail" /><span>Navigation One</span></span>}>
                                         <MenuItemGroup title="Item 1">
